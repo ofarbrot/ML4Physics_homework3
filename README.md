@@ -1,0 +1,1 @@
+This repository contains the solution for Task 3 of the ML4Physics homework: training a reinforcement learning (RL) agent to create quantum states with specific entanglement properties in an ion trap quantum computer.
