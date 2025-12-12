@@ -1,0 +1,12 @@
+# Need to have these pip installed
+numpy
+torch
+stable-baselines3
+gym
+tqdm
+# If run in Colab or Jupyter
+matplotlib
+tensorboard
+
+# For the IonTrap environment - clone the repo and install it
+# pip install -e path/to/rl-ion-trap-tutorial - https://github.com/HendrikPN/rl-ion-trap-tutorial
