@@ -1,10 +1,10 @@
-# The class model is the agent
 import torch
 
 class model():
     def __init__(self):
-        pass
-
+        self.policy = None
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    
     def pred(self, samples):
 
         # This agent will just create random gate sequences        

@@ -1,6 +1,5 @@
 
 
-
 def is_valid_srv(srv, d=None):
     """
     Check necessary (and for n=3, essentially sufficient) conditions for a Schmidt Rank Vector (SRV)

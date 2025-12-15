@@ -2,7 +2,7 @@ import numpy as np
 from scipy import linalg
 from functools import reduce
 
-from qudit_qm import QuditQM
+from .qudit_qm import QuditQM
 
 class LaserGates(QuditQM):
     def __init__(self, dim, num_ions, phases):

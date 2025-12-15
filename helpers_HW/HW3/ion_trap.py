@@ -1,8 +1,8 @@
 import numpy as np
 from functools import reduce
 
-from qudit_qm import QuditQM
-from laser_gates import LaserGates
+from .qudit_qm import QuditQM
+from .laser_gates import LaserGates
 
 class IonTrapEnv(QuditQM):
     def __init__(self, **kwargs):
