@@ -1,7 +1,5 @@
-from helpers_HW.HW3.ion_trap import IonTrapEnv
-
-def train(env, num_episodes, eta, gamma, max_t=99):
-    time_steps = []
+'''def train(env, num_episodes, eta, gamma, max_t=99):
+    steps = []
     rewards = []
     
     for i in range(num_episodes):
@@ -10,28 +8,72 @@ def train(env, num_episodes, eta, gamma, max_t=99):
         r = 0
         done = False
         
-        # The Q-Table learning algorithm
         for j in range(max_t):
-            # Choose an action greedily (with noise) picking from Q table.
-            # We can alternatively use an epsilon-greedy policy
+            # "Oberserve" state and choos action acording to policy
             a = np.argmax(Q[s,:] + np.random.randn(1, env.action_space.n)*(1./(i+1)))
+            
             #Get new state and reward from environment
-            s1, r, done, _, _ = env.step(a)
-            #Update Q-Table with new knowledge
-            Q[s,a] = Q[s,a] + eta*(r + gamma*np.max(Q[s1,:]) - Q[s,a])
+            state, reward, done = env.step(a)
+
+            # Update policy/knowlage 
+            None
+
+            s = state
+            if done == True:
+                break
+        
+        steps.append(j + 1)
+        rewards.append(r)
+      
+    return Q, steps, rewards'''
+
+from model import PS_agent
+def train_ps(env, gamma, eta, episodes):
+
+    ps_agent = PS_agent(gamma=gamma, eta=eta, 
+                        num_states=env.observation_space.n, 
+                        num_actions=env.num_actions)
+     
+    max_t = 99    
+    time_steps = []
+    rewards = []
+    
+    for t in range(episodes):
+    
+        s = env.reset()[0]
+        r = 0
+        done = False
+    
+        ps_agent.reset_gmatrix()
+        
+        for j in range(max_t):
+    
+            action = ps_agent.deliberate(s)        
+            s1, r, done, _, _ = env.step(action)
+            ps_agent.learn(r)
 
             s = s1
             if done == True:
                 break
-        
+                
         time_steps.append(j + 1)
         rewards.append(r)
-      
-    return Q, time_steps, rewards
+    
+    return ps_agent.hmatrix, ps_agent.gmatrix, time_steps, rewards
 
-env = IonTrapEnv()
+    
 
+gamma = 1e-7; eta = 0.006
 
+runs = 30
+episodes = 500
+steps, rewards = [], []
+for i in tqdm(range(runs)):
+    _, _, time_steps, obtained_rewards = train_ps(gamma, eta, episodes)
+    # _, _, time_steps, obtained_rewards = train_ps_from_lib(gamma, eta, episodes)
+
+    steps.append(time_steps)
+    rewards.append(obtained_rewards)
 
 
 
@@ -62,7 +104,7 @@ env = IonTrapEnv()
 
 
 # Something chat, dont think it is very useful
-
+'''
 import copy
 import numpy as np
 import torch
@@ -221,4 +263,4 @@ def training_algorithm(agent: model, env, episodes: int = 5000, lr: float = 3e-4
         if ep % print_every == 0:
             print(f"ep={ep:5d}  success~{running_success:.3f}  baseline={baseline:.3f}  last_target={target_srv}")
 
-    return agent
+    return agent'''
