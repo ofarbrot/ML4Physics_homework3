@@ -71,3 +71,26 @@ class PS_agent:
             return np.argmax(probs)
         else:
             return np.random.choice(len(probs), p=probs)
+        
+'''Mail:
+class model:
+    ....
+    def pred(self, samples):               
+
+        for srv in samples:
+               
+            KWARGS = {..., 'goal': [srv]}
+            env = IonTrapEnv(**KWARGS)
+                       
+            You favourite loop:
+
+                a = self.your_agent_act(state, srv)
+                               
+                state, r, done = env.step(a)
+                               
+                # Save the action sequence for current srv
+                sequence_for_this_srv.append(a)
+
+            # collect all sequences to return it                               
+            sequences.append(sequence_for_this_srv)
+'''
