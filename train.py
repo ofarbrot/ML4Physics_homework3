@@ -1,33 +1,5 @@
-'''def train(env, num_episodes, eta, gamma, max_t=99):
-    steps = []
-    rewards = []
-    
-    for i in range(num_episodes):
-        # Reset environment and initialize all variables
-        s = env.reset()[0]
-        r = 0
-        done = False
-        
-        for j in range(max_t):
-            # "Oberserve" state and choos action acording to policy
-            a = np.argmax(Q[s,:] + np.random.randn(1, env.action_space.n)*(1./(i+1)))
-            
-            #Get new state and reward from environment
-            state, reward, done = env.step(a)
-
-            # Update policy/knowlage 
-            None
-
-            s = state
-            if done == True:
-                break
-        
-        steps.append(j + 1)
-        rewards.append(r)
-      
-    return Q, steps, rewards'''
-
 from model import PS_agent
+
 def train_ps(env, gamma, eta, episodes):
 
     ps_agent = PS_agent(gamma=gamma, eta=eta, 
@@ -61,44 +33,57 @@ def train_ps(env, gamma, eta, episodes):
     
     return ps_agent.hmatrix, ps_agent.gmatrix, time_steps, rewards
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''def train(env, num_episodes, eta, gamma, max_t=99):
+    steps = []
+    rewards = []
     
+    for i in range(num_episodes):
+        # Reset environment and initialize all variables
+        s = env.reset()[0]
+        r = 0
+        done = False
+        
+        for j in range(max_t):
+            # "Oberserve" state and choos action acording to policy
+            a = np.argmax(Q[s,:] + np.random.randn(1, env.action_space.n)*(1./(i+1)))
+            
+            #Get new state and reward from environment
+            state, reward, done = env.step(a)
 
-gamma = 1e-7; eta = 0.006
+            # Update policy/knowlage 
+            None
 
-runs = 30
-episodes = 500
-steps, rewards = [], []
-for i in tqdm(range(runs)):
-    _, _, time_steps, obtained_rewards = train_ps(gamma, eta, episodes)
-    # _, _, time_steps, obtained_rewards = train_ps_from_lib(gamma, eta, episodes)
-
-    steps.append(time_steps)
-    rewards.append(obtained_rewards)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            s = state
+            if done == True:
+                break
+        
+        steps.append(j + 1)
+        rewards.append(r)
+      
+    return Q, steps, rewards'''
 
 
 
