@@ -98,6 +98,12 @@ def update(q_net, optimizer, batch, gamma):
 # ------------------
 for ep in range(episodes):
     srv = torch.randint(1, 4, (3,))
+    #if ep < 1500:
+    #    srv = torch.tensor([1, 1, 1])
+    #elif ep < 3000:
+    #    srv = torch.tensor([2, 2, 2])
+    #else:
+    #    srv = torch.randint(1, 4, (3,)) #old just this line, now try to learn harder SRVs like [3, 3, 3] last. Did work worse
     env = IonTrapEnv(
         phases=phases,
         num_ions=num_ions,
@@ -110,6 +116,7 @@ for ep in range(episodes):
     if ep == 0:
         print("Obs shape:", obs.shape)
 
+    #pure epsilon greedy policy
     for t in range(10):
         if random.random() < epsilon:
             action = random.randint(0, num_actions - 1)
@@ -117,10 +124,12 @@ for ep in range(episodes):
             with torch.no_grad():
                 action = torch.argmax(q_net(obs.unsqueeze(0))).item()
 
+
         next_state, reward, done = env.step(action)
         next_obs = make_obs(next_state, srv)
 
-        buffer.push(obs, action, reward, next_obs, done)
+        shaped_reward = reward - 0.05 #make better by penalize each step
+        buffer.push(obs, action, shaped_reward, next_obs, done) #before just reward
         obs = next_obs
 
         if len(buffer) >= batch_size:
