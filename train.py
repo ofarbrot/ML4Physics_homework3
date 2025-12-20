@@ -1,4 +1,4 @@
-from model import PS_agent
+from o_model import PS_agent
 
 def train_ps(env, gamma, eta, episodes):
 

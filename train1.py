@@ -4,7 +4,7 @@ import random
 import numpy as np
 from collections import deque
 from helpers_HW.HW3.ion_trap import IonTrapEnv
-from model1 import QNetwork
+from model import QNetwork
 
 
 # ------------------
@@ -91,7 +91,7 @@ def update(q_net, optimizer, batch, gamma):
     loss.backward()
     optimizer.step()
 
-    
+
 
 # ------------------
 # Training loop
