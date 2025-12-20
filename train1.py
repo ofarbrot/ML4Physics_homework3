@@ -63,7 +63,8 @@ def make_obs(state, srv):
         [
             torch.real(state),
             torch.imag(state),
-            torch.tensor(srv, dtype=torch.float32),
+            srv.float() #cleanup
+            #torch.tensor(srv, dtype=torch.float32),
         ]
     )
 
@@ -128,7 +129,12 @@ for ep in range(episodes):
         next_state, reward, done = env.step(action)
         next_obs = make_obs(next_state, srv)
 
-        shaped_reward = reward - 0.05 #make better by penalize each step
+        #shaped_reward = reward - 0.05 #make better by penalize each step
+        if done and reward == 1:
+            shaped_reward = 1.0
+        else:
+            shaped_reward = -0.1
+
         buffer.push(obs, action, shaped_reward, next_obs, done) #before just reward
         obs = next_obs
 
